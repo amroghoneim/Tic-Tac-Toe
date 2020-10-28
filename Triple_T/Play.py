@@ -12,8 +12,93 @@ class Play(Board, Player):
         self.player_2 = Player.__init__('O')
         self.choice = choice
     
-    def check_win(self):
-        pass
+    def check_win(self, player, i, j):
+        
+        if i == 0 and j ==0:
+            if self.board.board[i+1][j+1] == player.state:
+                if self.board.board[i+2][j+2] == player.state:
+                    self.winner = player
+            elif self.board.board[i+1][j] == player.state:
+                if self.board.board[i+2][j] == player.state:
+                    self.winner = player
+            elif self.board.board[i][j+1] == player.state:
+                if self.board.board[i][j+2] == player.state:
+                    self.winner = player
+                    
+        elif i == 0 and j == 2:
+             if self.board.board[i+1][j-1] == player.state:
+                if self.board.board[i+2][j-2] == player.state:
+                    self.winner = player
+             elif self.board.board[i+1][j] == player.state:
+                if self.board.board[i+2][j] == player.state:
+                    self.winner = player
+             elif self.board.board[i][j-1] == player.state:
+                if self.board.board[i][j-2] == player.state:
+                    self.winner = player
+                    
+        elif i == 2 and j == 0:
+             if self.board.board[i-1][j+1] == player.state:
+                if self.board.board[i-2][j+2] == player.state:
+                    self.winner = player
+             elif self.board.board[i-1][j] == player.state:
+                if self.board.board[i-2][j] == player.state:
+                    self.winner = player
+             elif self.board.board[i][j+1] == player.state:
+                if self.board.board[i][j+2] == player.state:
+                    self.winner = player
+                    
+        elif i == 2 and j == 2:
+             if self.board.board[i-1][j-1] == player.state:
+                if self.board.board[i-2][j-2] == player.state:
+                    self.winner = player
+             elif self.board.board[i-1][j] == player.state:
+                if self.board.board[i-2][j] == player.state:
+                    self.winner = player
+             elif self.board.board[i][j-1] == player.state:
+                if self.board.board[i][j-2] == player.state:
+                    self.winner = player
+                    
+        elif i == 0:
+            if self.board.board[i+1][j] == player.state:
+                if self.board.board[i+2][j] == player.state:
+                    self.winner = player
+            elif self.board.board[i][j-1] == player.state:
+                if self.board.board[i][j+1] == player.state:
+                    self.winner = player
+        elif i == 2:
+            if self.board.board[i-1][j] == player.state:
+                if self.board.board[i-2][j] == player.state:
+                    self.winner = player
+            elif self.board.board[i][j-1] == player.state:
+                if self.board.board[i][j+1] == player.state:
+                    self.winner = player
+        elif j == 0:
+            if self.board.board[i][j+1] == player.state:
+                if self.board.board[i][j+2] == player.state:
+                    self.winner = player
+            elif self.board.board[i-1][j] == player.state:
+                if self.board.board[i+1][j] == player.state:
+                    self.winner = player
+        elif j == 2:
+            if self.board.board[i+1][j] == player.state:
+                if self.board.board[i-1][j] == player.state:
+                    self.winner = player
+            elif self.board.board[i][j-1] == player.state:
+                if self.board.board[i][j-2] == player.state:
+                    self.winner = player
+        else:
+            if self.board.board[i+1][j+1] == player.state:
+                if self.board.board[i-1][j-1] == player.state:
+                    self.winner = player
+            elif self.board.board[i-1][j+1] == player.state:
+                if self.board.board[i+1][j-1] == player.state:
+                    self.winner = player
+            elif self.board.board[i][j+1] == player.state:
+                if self.board.board[i][j-1] == player.state:
+                    self.winner = player
+            elif self.board.board[i+1][j] == player.state:
+                if self.board.board[i-1][j] == player.state:
+                    self.winner = player
     
     def fill_square(self, player):
         print("choose square to fill (row,column)")
@@ -22,7 +107,7 @@ class Play(Board, Player):
         if self.board.board[i][j] == '-':
             print("setting square {},{} with value {}".format(row, column, player.state))
             self.board.board[i][j] = player.state
-            self.winner = self.check_win()
+            self.winner = self.check_win(player, i, j)
             
     def game_loop(self, choice):
         self.choice = choice
