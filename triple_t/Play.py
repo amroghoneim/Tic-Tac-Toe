@@ -1,8 +1,9 @@
 import random
 from .Board import Board
 from .Player import Player
+import time
 
-class Play(Board, Player):
+class Play():
     
     def __init__(self,  choice = 0, winner=None):
         self.winner = winner
@@ -102,9 +103,43 @@ class Play(Board, Player):
     
     def fill_square(self, player):
         print("choose square to fill (row,column)")
-        row = int(input("row (0-2):"))
-        column = int(input("column (0-2):"))
+        input_flag = False
+        while input_flag == False:
+            try:    
+                row = int(input("row (0-2):"))
+                column = int(input("column (0-2):"))
+                if row <=2 and row >= 0 and column <=2 and column >= 0:
+                    input_flag = True
+                else:
+                    print("Enter value between 0-2")
+            except:
+                print("Please Enter a number")
         if self.board.game_board[row][column] == '-':
+            print("setting square {},{} with value {}".format(row, column, player.state))
+            self.board.game_board[row][column] = player.state
+            self.check_win(player, row, column)
+        else:
+            flag = False
+            while flag == False:
+                print("Please choose an empty square!")
+                print("choose square to fill (row,column)")
+                input_flag = False
+                while input_flag == False:
+                    try:    
+                        row = int(input("row (0-2):"))
+                        if row <=2 and row >= 0:
+                            column = int(input("column (0-2):"))
+                            if column <=2 and column >= 0:
+                                input_flag = True
+                            else:
+                                print("Enter value between 0-2")
+                        else:
+                            print("Enter value between 0-2")
+                    except:
+                        print("Please Enter a number")
+                        
+                if self.board.game_board[row][column] == '-':
+                    flag = True
             print("setting square {},{} with value {}".format(row, column, player.state))
             self.board.game_board[row][column] = player.state
             self.check_win(player, row, column)
@@ -133,11 +168,16 @@ class Play(Board, Player):
         print("GAME OVER! {} WINS!".format(self.winner))
                 
     def start_game(self):
+        self.winner = None
         print("TIC TAC TOE")
+        time.sleep(1)
         self.board = Board()
         self.board.initialize_board()
+        time.sleep(1)
         self.player_1 = Player('X')
+        time.sleep(1)
         self.player_2 = Player('O')
+        time.sleep(1)
         choice = random.choice([0, 1])
         if choice == 0:
             print("X starts the game!")
