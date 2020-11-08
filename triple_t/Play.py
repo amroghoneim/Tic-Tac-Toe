@@ -6,6 +6,15 @@ import time
 class Play():
     
     def __init__(self,  choice = 0, winner=None):
+        '''
+            init function for class
+            
+            winner: object, to be set with player object who won the game
+            choice: int, used to select who starts the game
+            player_1: object, to be set as a player object
+            player_2: object, to be set as a player object
+            board: object, to be set a board object
+        '''
         self.winner = winner
         self.choice = choice
         self.player_1 = None
@@ -14,7 +23,14 @@ class Play():
 #         Player.__init__(self, '.')
         
     def check_win(self, player, i, j):
-        
+        '''
+            Function to check if player has won the game or not
+            
+            Check every possible combination in a 3x3 board
+            player: player object
+            i: int, row value in board
+            j: int, column value in board
+        '''
         if i == 0 and j ==0:
             if self.board.game_board[i+1][j+1] == player.state:
                 if self.board.game_board[i+2][j+2] == player.state:
@@ -102,6 +118,11 @@ class Play():
                     self.winner = player
     
     def fill_square(self, player):
+        '''
+            Function to place X/O on the board based on player's input
+            
+            player: player object
+        '''
         print("choose square to fill (row,column)")
         input_flag = False
         while input_flag == False:
@@ -145,7 +166,12 @@ class Play():
             self.check_win(player, row, column)
             
     def game_loop(self, choice):
-#         self.initialize_board()
+        '''
+            Function to start game loop.
+            Terminates when one of the players win
+            
+            choice: int, used to select who starts the game
+        '''
         
         self.choice = choice
         if self.choice == 0:
@@ -168,6 +194,9 @@ class Play():
         print("GAME OVER! {} WINS!".format(self.winner))
                 
     def start_game(self):
+        '''
+            Function to start the game of Tic-Tac-Toe
+        '''
         self.winner = None
         print("TIC TAC TOE")
         time.sleep(1)
